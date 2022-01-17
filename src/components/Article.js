@@ -10,7 +10,8 @@ function Article(){
     const db=firebase.firestore()
     const [articleInfo, setArticleInfo] = useState([]);
     const [comments, setComments] = useState([]);
-
+    const [username, setUsername] = useState('');
+    const [commentText, setCommentText] = useState('');
 
     const fetcharticles=async()=>{
         const articlesRef = db.collection('Articles');
@@ -41,42 +42,45 @@ function Article(){
 
         );
     }
-    const [username, setUsername] = useState('');
-    const [commentText, setCommentText] = useState('');
+    
     return(
         <>
-            <h1>{articleInfo.titre}</h1>
-            
-            <p>{articleInfo.contenu}</p>
+            <h1 className="text-center m-4">{articleInfo.titre}</h1>
+            <div className="row justify-content-md-center ">
+           <div className="col-8  text-center">
+            <p className="text-center">{articleInfo.contenu}</p>
+            </div>
 
-            <p>espace commentaire</p>
+           <div className="col-8  border-top border-dark border-1 ">
+            <h3 className="  mt-3 text-center">Espace Commentaire</h3>
             {comments.filter(comment => comment.article===articleInfo.nom ).map(comment=>{ return(
-                <div>
+                <div className="m-4">
                     <p>{comment.nom}</p>
                     <p>{comment.texte}</p>                
                 </div>
             
            
             )})}
-        
-            <p>formulaire commentaire</p>
-            <form id="add-comment-form" onSubmit={writeData}>
-                
-                <label>
-                    Name:
-                    <input type="text" value={username} onChange={(event) => setUsername(event.target.value)} required />
-                </label>
-                <label>
-                    Comment:
-                    <textarea rows="4" cols="50" value={commentText} onChange={(event) => setCommentText(event.target.value)} required/>
-                </label>
-                <label>
-                    
-                <input type="submit" value="Envoyer" />
+            </div>
+            <div className="col-8 border-top border-dark border-1 text-center">
+                <h3 className="m-4">Ajouter un commentaire</h3>
+                <form id="add-comment-form" onSubmit={writeData}>
+                    <div className="form-floating mb-1">
+                        <input type="text" className="form-control" id="floatingInput" placeholder="nom" value={username} onChange={(event) => setUsername(event.target.value)} required />
+                        <label htmlFor="floatingInput">Nom:</label>
 
-                </label>
-            
-            </form>
+                    </div>   
+                    <div className="form-floating">
+                        <textarea className="form-control" id="floatingTextarea2" placeholder="commentaire" value={commentText} onChange={(event) => setCommentText(event.target.value)} required/>         
+                        <label htmlFor="floatingTextarea2">Commentaire:</label>
+                        
+                        <input type="submit" class="btn btn-primary" value="Envoyer" />
+                    </div>
+                
+                
+                </form>
+                </div>
+            </div>
         </>
     )
 }

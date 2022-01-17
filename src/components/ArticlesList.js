@@ -27,21 +27,28 @@ function ArticlesList(){
     // console.log(articles )
   return (
       
-    <div className="App">
+    <div className="container">
       {
       articles.map(article=>{ return(
            <>
-           {<Link key={article.id} to={`/article/${article.nom}`}>
-             <h1>{article.titre}</h1>         
-            <p>{article.contenu.substring(0, 150)}...</p>
-            </Link>  }
+          <div className="row justify-content-md-center ">
+           <div className="col-8  text-center">
+            {<Link key={article.id} to={`/article/${article.nom}`}>
+              <h2>{article.titre}</h2>         
+              <p>{article.contenu.substring(0, 150)}...</p>
+              </Link>  }
+            </div>
+            </div>
+            
            </>
-
+          
        )
           
         })
       }
     </div>
+    
+    
   );
 }
 
