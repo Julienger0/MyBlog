@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}  />
         <Route path="/articleslist" element={<ArticlesList />}  />
-        <Route path="/article/:name" element={<Article/>}/>
+        <Route path="/article/:article_name" element={<Article/>}/>
         
 
         {/* <Route component={NotFoundPage} /> */}

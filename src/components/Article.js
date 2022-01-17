@@ -1,11 +1,12 @@
 import React from "react";
 import {useState,useEffect} from 'react';
 import firebase from "../firebase"
+import { useParams } from "react-router-dom";
 
 
-function Article({match}){
+function Article(){
     
-
+    const { article_name } = useParams();
     const db=firebase.firestore()
     const [articleInfo, setArticleInfo] = useState([]);
     const [comments, setComments] = useState([]);
@@ -15,7 +16,7 @@ function Article({match}){
         const articlesRef = db.collection('Articles');
         const snapshot = await articlesRef.get();
         snapshot.forEach(item=>{
-           if (item.data().nom==='article2'){
+           if (item.data().nom===article_name){
               setArticleInfo(item.data())             
            }          
         })
@@ -30,21 +31,18 @@ function Article({match}){
         fetcharticles();
     }, [])
 
-
-//     const res =(nomForm,textForm,articleInfo)=>{  db.collection('Comments').add({
-//     nom: nomForm,
-//     texte: textForm,
-//     article: articleInfo
-// })};
     function writeData() {
-        firebase.database().ref("Comments").set( {
-                Email: document.getElementById("help").value,
-                Price: document.getElementById("price1").value,
-                Desc: document.getElementById("Pdesc").value,
+        db.collection('Commentaires').add( {
+                nom: username,
+                texte: commentText,
+                article:articleInfo.nom,
+                    
             }
 
         );
     }
+    const [username, setUsername] = useState('');
+    const [commentText, setCommentText] = useState('');
     return(
         <>
             <h1>{articleInfo.titre}</h1>
@@ -62,30 +60,23 @@ function Article({match}){
             )})}
         
             <p>formulaire commentaire</p>
-            <form>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Enter Product name
-                    <input type="text" class="form-control" id="help" aria-describedby="emailHelp"/>
-                    </label>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Product Price
-                    <input type="number" class="form-control" id="price1"/>
-                    </label>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Product description
-                    <input type="text" class="form-control" id="Pdesc"/>
-                    </label>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" id="upProgess" class="form-label">Upload a file
-                    <input type="file" class="form-control" id="namebox"/>
-                    </label>
-                </div>
-                <button type="submit" onclick="writeData()" class="btn btn-lg btn-success">Upload</button>
-        </form>
+            <form id="add-comment-form" onSubmit={writeData}>
+                
+                <label>
+                    Name:
+                    <input type="text" value={username} onChange={(event) => setUsername(event.target.value)} required />
+                </label>
+                <label>
+                    Comment:
+                    <textarea rows="4" cols="50" value={commentText} onChange={(event) => setCommentText(event.target.value)} required/>
+                </label>
+                <label>
+                    
+                <input type="submit" value="Envoyer" />
 
+                </label>
+            
+            </form>
         </>
     )
 }

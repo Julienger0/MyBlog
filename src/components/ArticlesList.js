@@ -31,9 +31,10 @@ function ArticlesList(){
       {
       articles.map(article=>{ return(
            <>
-           <Link key={article.id} to={`/article/${article.nom}`}><h1>{article.titre}</h1>         
+           {<Link key={article.id} to={`/article/${article.nom}`}>
+             <h1>{article.titre}</h1>         
             <p>{article.contenu.substring(0, 150)}...</p>
-            </Link>  
+            </Link>  }
            </>
 
        )
