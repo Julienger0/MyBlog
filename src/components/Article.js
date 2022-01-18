@@ -51,16 +51,16 @@ function Article(){
             <p className="text-center">{articleInfo.contenu}</p>
             </div>
 
-           <div className="col-8  border-top border-dark border-1 ">
+           <div className="comments_space col-8  border-top border-dark border-1 ">
             <h3 className="  mt-3 text-center">Espace Commentaire</h3>
-            {comments.filter(comment => comment.article===articleInfo.nom ).map(comment=>{ return(
-                <div className="m-4">
-                    <p>{comment.nom}</p>
-                    <p>{comment.texte}</p>                
-                </div>
-            
-           
+            <div className="row justify-content-md-center">
+                {comments.filter(comment => comment.article===articleInfo.nom ).map(comment=>{ return(
+                    <div className="comments m-4 border border-dark w-75 ">
+                        <p className="fst-italic">{comment.nom}</p>
+                        <p className="fw-bold">{comment.texte}</p>                
+                    </div>
             )})}
+            </div>
             </div>
             <div className="col-8 border-top border-dark border-1 text-center">
                 <h3 className="m-4">Ajouter un commentaire</h3>

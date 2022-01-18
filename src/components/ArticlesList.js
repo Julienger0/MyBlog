@@ -31,9 +31,9 @@ function ArticlesList(){
       {
       articles.map(article=>{ return(
            <>
-          <div className="row justify-content-md-center ">
+          <div className="row justify-content-md-center">
            <div className="col-8  text-center">
-            {<Link key={article.id} to={`/article/${article.nom}`}>
+            {<Link key={article.id} className='link' to={`/article/${article.nom}`}>
               <h2>{article.titre}</h2>         
               <p>{article.contenu.substring(0, 150)}...</p>
               </Link>  }

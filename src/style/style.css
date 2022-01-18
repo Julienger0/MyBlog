@@ -3,3 +3,19 @@
     height: 100px;
     
 }
+.comments_space{
+    background-color: #7A968A;
+}
+.comments{
+    background-color: #B0C2BA;
+}
+
+.link{
+    text-decoration: none !important;
+    color: black;
+    
+}
+
+.link:hover{
+    color: inherit;
+}
